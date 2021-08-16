@@ -15,6 +15,7 @@ let holeProb
 // let countHole = 0;
 let field =[]
 
+// generate a random starting from 2
 const getRandomNum = (num) =>{
     let positionNum = Math.floor(Math.random()*num)
     while(positionNum <= 1){
@@ -53,7 +54,7 @@ const generateField = (row, col, prob) =>{
 }
 
 
-// select a  level easy, normal, hard
+// user select a  level easy, normal, hard
 const customField = () =>{
     let input = prompt('Easy: 1\nNormal: 2\nDifficult: 3\nPlease select a level then press enter:', 2)
     let option = parseInt(input)    
@@ -92,6 +93,7 @@ const print = (field) =>{
 	console.log(newArr)
     newArr = [[]]
 }
+// check out of boundary 
 const isOutBoundary = (row, col)=>{
     if (row < 0 || col < 0 || row > (field.length) || col > (field[0].length-1)){
         return true
@@ -99,6 +101,7 @@ const isOutBoundary = (row, col)=>{
         return false
     }
 }
+// validate input and alter user position
 const takeUserInput = () =>{
     console.log(Instruction)
     print(field)
@@ -151,7 +154,7 @@ const takeUserInput = () =>{
     }		
 }
 
-// check user input 
+// check user position is on hole/ hat/ pathChar
 const checkUserInput = (row, col) => {
     let position = field[row][col]    
     if (position == hole){
@@ -168,12 +171,12 @@ const checkUserInput = (row, col) => {
         renewField(row, col)        
     }
 }
-
+// renew field
 const renewField = (row, col) =>{
     field[row][col] = '*';
     takeUserInput()    
 }
-
+// end game greeting
 const gameOver = (status) => {
     if(status === true){
         console.log("Congratulations! You found the hat!")
