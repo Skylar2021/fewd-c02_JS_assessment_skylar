@@ -92,7 +92,13 @@ const print = (field) =>{
 	console.log(newArr)
     newArr = [[]]
 }
-
+const isOutBoundary = (row, col)=>{
+    if (row < 0 || col < 0 || row > (field.length) || col > (field[0].length-1)){
+        return true
+    } else{
+        return false
+    }
+}
 const takeUserInput = () =>{
     console.log(Instruction)
     print(field)
@@ -102,22 +108,42 @@ const takeUserInput = () =>{
         case 'W':
             currentRow-=1;
             currentCol;
-            checkUserInput(currentRow, currentCol);
+            if(isOutBoundary(currentRow, currentCol))  {
+                console.log('You are out of boundary')
+                gameOver(false)
+            } else{ 
+                checkUserInput(currentRow, currentCol)
+            };
             break;
         case 'S':
             currentRow+=1;
             currentCol;
-            checkUserInput(currentRow, currentCol);
+            if(isOutBoundary(currentRow, currentCol))  {
+                console.log('You are out of boundary')
+                gameOver(false)
+            } else{ 
+                checkUserInput(currentRow, currentCol)
+            };
             break;
         case 'A':
             currentRow;
             currentCol-=1;
-            checkUserInput(currentRow, currentCol);
+            if(isOutBoundary(currentRow, currentCol))  {
+                console.log('You are out of boundary')
+                gameOver(false)
+            } else{ 
+                checkUserInput(currentRow, currentCol)
+            };
             break;
         case 'D':
             currentRow;
             currentCol+=1;
-            checkUserInput(currentRow, currentCol);
+            if(isOutBoundary(currentRow, currentCol))  {
+                console.log('You are out of boundary')
+                gameOver(false)
+            } else{ 
+                checkUserInput(currentRow, currentCol)
+            };
             break;
         default:
             console.log('***Please enter W, S, A or D***');
@@ -128,15 +154,7 @@ const takeUserInput = () =>{
 // check user input 
 const checkUserInput = (row, col) => {
     let position = field[row][col]    
-    if(row < 0 || col < 0){        
-        console.log('You are out of boundary')
-        gameOver(false)        
-    } 
-    else if( row > (fieldRow-1) || col > (fieldCol-1)){
-        console.log('You are out of boundary')
-        gameOver(false)        
-    } 
-    else if (position == hole){
+    if (position == hole){
         console.log(`You fall in the hole.`)
         gameOver(false)
     } 
@@ -161,12 +179,12 @@ const gameOver = (status) => {
         console.log("Congratulations! You found the hat!")
         currentCol = 0
         currentRow = 0
-        countHole = 0
+        // countHole = 0
 	} else {
         console.log("Your hat is still waiting for you~")
         currentCol = 0
         currentRow = 0
-        countHole = 0
+        // countHole = 0
 	}  	
 }
 // takeUserInput()
