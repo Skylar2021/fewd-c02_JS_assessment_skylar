@@ -5,50 +5,14 @@ const hole = 'O';
 const fieldChar = '░';
 const pathChar = '*';
 const Instruction = 'Instruction:\nW for going up\nS for going down\nA for going left\nD for going right\nPlease choose a direction and press enter.\n-------'
-// field level easy, normal, hard or custom
-const easyField = () =>{
-	// let easy = new Field()
-}
-const normalField = () =>{
-}
-const hardField = () =>{
-}
 
-const selectField = () =>{
-	let level = prompt('Pick a level(please enter easy, normal, hard or custom): ', 'normal')
-	switch(level){ 
-		case 'easy':
-  			easyField();
-			break;
-		case 'normal':
-			normalField();
-			break;
-		case 'hard':
-			hardField();
-			break;
-		case 'custom':
-			customField();
-			break;
-		default:
- 		selectField();
-	}
-}
-
-// join arr into field
-let arr =[
-['*', '░', 'O', '░', 'O', 'O', '░'],// arr[0][0], arr[0][1]
-['O', '░', '░', '░', 'O', '░', 'O'],// arr[1][0], arr[1][1]
-['O', '░', 'O', '░', '░', '░', '░'],
-['░', 'O', 'O', '░', 'O', '░', '░'],
-['░', '^', '░', '░', '░', 'O', '░'],
-]
 let newArr = [[]];
 let currentRow = 0;
 let currentCol = 0;
 let fieldCol = 10
 let fieldRow = 6
 let holeProb
-let countHole = 0;
+// let countHole = 0;
 let field =[]
 
 const getRandomNum = (num) =>{
@@ -62,27 +26,20 @@ const getRandomNum = (num) =>{
 // generate a random Field
 const generateField = (row, col, prob) =>{
     let hatRow = getRandomNum(row)
-    let hatCol = getRandomNum(col)
-    
+    let hatCol = getRandomNum(col)    
     // let maxHoleNum = Math.floor(row*col*prob)
-    // let pushItem = Math.random() > prop ? '░' : 'O';
-    // let field = [[]]
     field = new Array(row).fill('░').map(item => new Array(col))
-    
-    // field[i][j]
-    // field[j][i]
     for(let i = 0; i < row ; i++){        
         for(let j = 0; j < col ; j++){ 
             if (i === 0 && j === 0){
-                // set start point //field[0][0] = pathChar;
+                // set start point 
                 field[i][j] = pathChar;
             } else if(i === hatRow && j === hatCol){
-                 // set Hat Position // field[hatRow][hatCol] = hat;
+                 // set Hat Position 
                 field[i][j] = hat
             } else{
                 console.log()
                 field[i][j]= Math.random()*1.1 >= prob ? '░' : 'O';
-
                 // if(field[i][j] === 'O' && countHole <= maxHoleNum){
                 //     countHole++
                 // } else if(field[i][j] === 'O' && countHole >= maxHoleNum){
@@ -91,19 +48,15 @@ const generateField = (row, col, prob) =>{
                     // return field[i][j] = '░'
                 }
         }
-    }
-    // console.log(maxHoleNum)
-    // console.log(field.indexOf(pathChar))
-    // takeUserInput()
+    }    
     return field
 }
 
 
-// user set a custom field
+// select a  level easy, normal, hard
 const customField = () =>{
     let input = prompt('Easy: 1\nNormal: 2\nDifficult: 3\nPlease select a level then press enter:', 2)
-    let option = parseInt(input)
-    
+    let option = parseInt(input)    
     if(option === 1){
         fieldCol = 10
         fieldRow = 6
@@ -133,8 +86,7 @@ const customField = () =>{
 }
 
 // print out field
-const print = (field) =>{
-    
+const print = (field) =>{    
 	field.forEach(i => {newArr.push(i.join(''))});
     newArr = newArr.join('\n')
 	console.log(newArr)
@@ -174,7 +126,6 @@ const takeUserInput = () =>{
 }
 
 // check user input 
-
 const checkUserInput = (row, col) => {
     let position = field[row][col]    
     if(row < 0 || col < 0){        
@@ -202,8 +153,7 @@ const checkUserInput = (row, col) => {
 
 const renewField = (row, col) =>{
     field[row][col] = '*';
-    takeUserInput()
-    
+    takeUserInput()    
 }
 
 const gameOver = (status) => {
@@ -219,9 +169,6 @@ const gameOver = (status) => {
         countHole = 0
 	}  	
 }
-
-
 // takeUserInput()
 // generateField(8, 18, 0.4)
-
 customField()
