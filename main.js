@@ -57,8 +57,8 @@ class Field {
 		this.tempArr = [[]]
 	}
 	takeUserInput() {
-		console.log(this.Instruction)
 		this.print()
+		console.log(this.Instruction)
 		let askDirection = prompt('Which direction?')
 		askDirection = askDirection.toUpperCase()
 		switch (askDirection) {
