@@ -19,10 +19,7 @@ class Field {
 		this.currentRow = 0
 		this.currentCol = 0
 		this.tempArr = [[]]
-		this.Instruction = 'Instruction:\nW for going up\nS for going down\nA for going left\nD for going right\nPlease choose a direction and press enter.\n-------'
-		// this.fieldCol = 0
-		// this.fieldRow = 0
-		// this.holeProb = 0.2
+		this.Instruction = 'Instruction:\nW for going up\nS for going down\nA for going left\nD for going right\nPlease choose a direction and press enter.\n-------'		
 	}
 	// generate random field
 	static generateField(row, col, prob) {
@@ -55,6 +52,7 @@ class Field {
 	print() {
 		this.field.forEach(i => { this.tempArr.push(i.join('')) });
 		this.tempArr = this.tempArr.join('\n')
+		console.clear()
 		console.log(this.tempArr)
 		this.tempArr = [[]]
 	}
@@ -154,64 +152,41 @@ class Field {
 	}
 	// get game start
 	playGame() {
-		this.takeUserInput()
-		/*
-		let input = prompt('Easy: 1\nNormal: 2\nDifficult: 3\nPlease select a level then press enter:', 2)
-		let option = parseInt(input)    
-		if(option === 1){
-			this.fieldCol = 10
-			this.fieldRow = 6
-			this.holeProb = 0.1
-			this.generateField(this.fieldRow,this.fieldCol,this.holeProb)
-			this.takeUserInput()  
-		} else if(option === 2){
-			this.fieldCol = 10
-			this.fieldRow = 6
-			this.holeProb = 0.3
-			this.generateField(this.fieldRow,this.fieldCol,this.holeProb)
-			this.takeUserInput() 
-		} else if(option === 3){
-			this.fieldCol = 12
-			this.fieldRow = 8
-			this.holeProb = 0.4
-			this.generateField(this.fieldRow,this.fieldCol,this.holeProb)
-			this.takeUserInput() 
-		} else{
-			console.log('Cannot read your input. Default level mode on...')
-			this.fieldCol = 10
-			this.fieldRow = 6
-			this.holeProb = 0.3
-			this.generateField(this.fieldRow,this.fieldCol,this.holeProb)
-			this.takeUserInput() 
-		}*/
+		this.takeUserInput()		
 	}
 }
 
-const selectField = () => {
-	let level = prompt('Pick a level(please enter easy, normal, hard or custom): ', 'normal')
-	switch (level) {
-		case 'easy':
-			easyField();
-			break;
-		case 'normal':
-			normalField();
-			break;
-		case 'hard':
-			hardField();
-			break;
-		case 'custom':
-			customField();
-			break;
-		default:
-			selectField();
-	}
-
+const customizeField = ()=> {
+	console.log('Let\'s customize your 2-dimentional field!')
+	let inputH = prompt('Please set the height with number: ', 10)
+	let inputW = prompt('Please set the width with number: ', 15)
+	let inputProb = prompt('Please set the difficulty with number within 1-100:', 20)
+	let height = parseInt(inputH)
+	let width = parseInt(inputW)
+	let prob = parseInt(inputProb) / 100
+	runGame(height, width, prob)		
 }
 
-const myField = new Field(Field.generateField(8, 12, 0.3));
-myField.playGame()
+const validInput = (height, width, prob) => {
+	if(typeof height && typeof width && typeof prob === 'number'){
+		if( height >= 3 && width >= 3 && prob > 0 && prob < 100){
 
+		}
+	} else {
+		return false
+	}
+}
 
+const runGame = (height, width, prob) => {
+	if((typeof height && typeof width && typeof prob === 'number') && (height >= 3 && width >= 3) && (prob > 0) && (prob < 100)){
+		const myField = new Field(Field.generateField(height, width, prob));
+		myField.playGame()
+	} else {
+		console.log('_____Please customize field with resonable NUMBER!!_____')
+		customizeField()
+	}		
+}
+customizeField()
 
 
 

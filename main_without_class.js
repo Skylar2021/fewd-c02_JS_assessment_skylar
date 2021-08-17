@@ -54,7 +54,7 @@ const generateField = (row, col, prob) =>{
 }
 
 
-// user select a  level easy, normal, hard
+// user select a level( easy, normal, hard)
 const customField = () =>{
     let input = prompt('Easy: 1\nNormal: 2\nDifficult: 3\nPlease select a level then press enter:', 2)
     let option = parseInt(input)    
@@ -90,8 +90,10 @@ const customField = () =>{
 const print = (field) =>{    
 	field.forEach(i => {newArr.push(i.join(''))});
     newArr = newArr.join('\n')
+    console.clear()
 	console.log(newArr)
     newArr = [[]]
+
 }
 // check out of boundary 
 const isOutBoundary = (row, col)=>{
